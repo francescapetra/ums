@@ -1,0 +1,36 @@
+<td>{{user.name}}</td>
+<td>{{user.lastname}}</td>
+<td>{{user.fiscalcode}}</td>
+<td>{{user.email}}</td>
+<td>{{user.phone}}</td>
+<td>{{user.province}}</td>
+<td>{{user.age}}</td>
+<td>{{user.id}}</td>
+<td>
+
+  <div class="row">
+
+    <div class="col-sm-4">
+
+      <button class="update btn btn-primary btn-sm" (click)="updateUser()"><fa-icon  [icon]="pencil" size="2x" ></fa-icon></button>
+
+    </div>
+
+    <div class="col-sm-4">
+
+      <button class="delete btn btn-danger btn-sm" (click)="deleteUser(user)"><fa-icon [icon]="trash" size="2x"></fa-icon></button>
+
+    </div>
+
+    <div class="col-sm-4">
+
+      <button class="delete btn btn-warning btn-sm" (click)="showUserDetail()"><fa-icon [icon]="info" size="2x"></fa-icon>
+      </button>
+
+    </div>
+
+
+  </div>
+
+
+</td>

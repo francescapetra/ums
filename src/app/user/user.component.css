@@ -1,0 +1,20 @@
+/* td{
+  padding:5px;
+  border: 1px solid #fff;
+  background-color:silver;
+  color: rgb(36, 7, 105);
+}
+button{
+  padding: 5px;
+  border: 1px solid #222;
+  width:80px;
+  cursor: pointer;
+}
+button.delete{
+  background: #fff;
+  color:red;
+}
+button.update{
+  background: #fff;
+  color:green;
+} */
