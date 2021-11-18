@@ -13,18 +13,30 @@ import { UserService } from '../services/user.service';
 
 export class UserDataComponent implements OnInit {
 
-public title = "Dettaglio Utenti";
+  public title = "Dettaglio Utenti";
 
-  public User!: User;
+  public User: User;
 
   constructor(private route:ActivatedRoute, private userService:UserService, private router:Router) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
 
     this.User = new User();
 
-    this.route.params.subscribe(p => this.User = this.userService.getUser(+p['id']));
-    //this.route.params.subscribe(p => this.User = this.userService.getUser(+p['4']));
+    this.route.params.subscribe(p => {
+
+    this.userService.getUser(+p['id'])
+
+      .subscribe(res => {
+          this.User = res.data;
+
+
+console.log( res.data);
+        });
+
+      //.subscribe(response => console.log(this.User = JSON.parse(JSON.stringify(response))))
+
+    });
 
   }
   showUserDetail(){

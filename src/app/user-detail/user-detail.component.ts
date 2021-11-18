@@ -10,12 +10,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UserDetailComponent implements OnInit {
 
-  private userCopy!: User;
+  private userCopy: User;
 
-  private __user!: User;
+  private __user: User;
 
   @Input() set user(user: User) {
-
 
     this.__user = user;
 
@@ -28,7 +27,6 @@ export class UserDetailComponent implements OnInit {
 
   }
 
-
   constructor(private userService : UserService, private route: ActivatedRoute, private router: Router) {
 
     // this.userService = userService;
@@ -39,32 +37,39 @@ export class UserDetailComponent implements OnInit {
     this.user = new User();
 
     this.route.params.subscribe((params) => {
-      console.log(typeof(+params['id']));//number
-
+      //console.log(typeof(+params['id']));//number
       if(!params['id']){
 
         return;
       }
 
-      this.user = this.userService.getUser(+params['id']);
+     this.userService.getUser(+params['id'])
 
+      .subscribe( res =>{
 
+        this.user = res['data'];
+
+        console.log(typeof(+params['id']) + +params['id']);
+
+      });
 
     });
 
   }
   saveUser(){
     //alert(this.user.id);
-    if (this.user.id >0) {
+    this.userService.updateUser(this.user).subscribe(
+      res => {
 
-      this.userService.updateUser(this.user);
+        if (res['success']) {
+          alert('User ' + this.user.name + ' modificato correttamente');
+          this.router.navigate(['users']);
 
-    }else {
-
-      this.userService.createUser(this.user);
-
-    }
-    this.router.navigate(['']);
+        } else {
+          alert(res['message']);
+        }
+      }
+    );
   }
 
   resetForm(_form: { reset: () => void; }) {//fixed

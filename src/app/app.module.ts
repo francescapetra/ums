@@ -14,33 +14,28 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserDataComponent } from './user-data/user-data.component';
 import { HttpClientModule } from '@angular/common/http';
 
-const routes:Routes = [
-
+const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent
-
+  },
+  {
+    path: '',
+    redirectTo: 'users',
+    pathMatch: 'full'
   },
   {
     path: 'users/new',
     component: UserDetailComponent
   },
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo:'users',
-
+    path: 'users/:id',
+    component: UserDataComponent
   },
   {
     path: 'users/:id/edit',
     component: UserDetailComponent
-
-  },
-  {
-    path: 'user/:id',
-    component: UserDataComponent
-
-  },
+  }
 ];
 
 @NgModule({

@@ -43,8 +43,10 @@ export class UserComponent implements OnInit {
   }
 
   showUserDetail(){
+//console.log(['users', this.user.id]);
+    this.route.navigate(['users', this.user.id]);
 
-    this.route.navigate(['user', this.user.id]);
+    this.onSelectUser.emit(this.user);
 
   }
 
