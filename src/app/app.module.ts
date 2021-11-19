@@ -10,33 +10,10 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NavComponent } from './nav/nav.component';
-import { RouterModule, Routes } from '@angular/router';
 import { UserDataComponent } from './user-data/user-data.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RoutingModuleModule } from './routing-module.module';
 
-const routes: Routes = [
-  {
-    path: 'users',
-    component: UsersComponent
-  },
-  {
-    path: '',
-    redirectTo: 'users',
-    pathMatch: 'full'
-  },
-  {
-    path: 'users/new',
-    component: UserDetailComponent
-  },
-  {
-    path: 'users/:id',
-    component: UserDataComponent
-  },
-  {
-    path: 'users/:id/edit',
-    component: UserDetailComponent
-  }
-];
 
 @NgModule({
   declarations: [
@@ -52,8 +29,8 @@ const routes: Routes = [
     AppRoutingModule,
     FormsModule,
     FontAwesomeModule,
-    RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    RoutingModuleModule
 
   ],
   providers: [UserService],

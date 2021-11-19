@@ -36,20 +36,20 @@ export class UserDetailComponent implements OnInit {
 
     this.user = new User();
 
-    this.route.params.subscribe((params) => {
+    this.route.paramMap.subscribe((params) => {
       //console.log(typeof(+params['id']));//number
-      if(!params['id']){
+      if(!params.get('id')){
 
         return;
       }
 
-     this.userService.getUser(+params['id'])
+     this.userService.getUser(+params.get('id'))
 
       .subscribe( res =>{
 
         this.user = res['data'];
 
-        console.log(typeof(+params['id']) + +params['id']);
+        console.log(typeof(+params.get('id')) + +params.get('id'));
 
       });
 
