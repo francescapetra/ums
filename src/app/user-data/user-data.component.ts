@@ -23,15 +23,10 @@ export class UserDataComponent implements OnInit {
 
     this.User = new User();
 
-    this.route.params.subscribe(p => {
+    this.route.params.subscribe(p => {this.userService.getUser(+p['id']).subscribe(res => {
 
-    this.userService.getUser(+p['id'])
-
-      .subscribe(res => {
-          this.User = res.data;
-
-
-console.log( res.data);
+    this.User = res.data;
+           //console.log( res.data);
         });
 
       //.subscribe(response => console.log(this.User = JSON.parse(JSON.stringify(response))))
