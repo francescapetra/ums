@@ -63,9 +63,8 @@ export class UserService{
     }
     createUser(user: User) {
 
-      user.id = this.users.length+1;
+      return this.http.post<UserResponse>(this.APIURL, user);
 
-      this.users.splice(0,0,user);
 
     }
 
