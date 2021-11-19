@@ -37,7 +37,19 @@ export class UsersComponent implements OnInit {
   }
   onDeleteUsers2(user:User){
 
-    this.service.deleteUser(user);
+    this.service.deleteUser(user)
+
+    .subscribe(
+      res => {
+        alert(res.message);
+
+        this.service.getUsers()
+        .subscribe(res => {this.users = res.data});
+
+    },(err:any) => {
+        console.log(err);//line: 160
+      }
+    );
 
   }
   onSelectUser2(user: User): void {
