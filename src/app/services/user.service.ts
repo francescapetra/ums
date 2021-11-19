@@ -43,17 +43,7 @@ export class UserService{
 
     deleteUser(user: User) {
 
-      console.log(user.age);//accesso alle proprietà
-
-      const index = this.users.indexOf(user);
-
-      console.log(index);
-
-      if (index > -1) {
-
-        this.users.splice(index, 1);
-
-      }
+      return this.http.delete<UserResponse>(this.APIURL + '/' + user.id);
 
     }
     updateUser(user: User) {
