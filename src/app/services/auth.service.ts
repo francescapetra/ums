@@ -5,17 +5,23 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  private isUserLogged = true;
+  private isUserLogged = false;
 
   constructor() { }
 
   isUserLoggedIn(){
+
+    this.isUserLogged = !!localStorage.getItem('token');
 
     return this.isUserLogged;
   }
 
   signIn(email:string, password:string){
 
+    //alert(email+ ','+password);
+
+    localStorage.setItem('token', email);
+    return true;
 
   }
 
@@ -24,6 +30,8 @@ export class AuthService {
 
   }
   logout(){
+
+    localStorage.removeItem('token');
 
     this.isUserLogged = false;
 
