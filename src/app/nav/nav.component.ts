@@ -32,7 +32,16 @@ export class NavComponent implements OnInit {
     this.router.navigate(['login']);
 
   }
-  // s
+  signIn(e: { preventDefault: () => void; }){
+
+    e.preventDefault();
+    this.router.navigate(['login']);
+  }
+  signUp(e: { preventDefault: () => void; }){
+
+    e.preventDefault();
+    this.router.navigate(['signup']);
+  }
 
 }
 
