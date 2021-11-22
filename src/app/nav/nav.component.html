@@ -42,6 +42,10 @@
         <a *ngIf="isUserLoggedIn" href="#" class="nav-link" (click)="logout2($event)">Sign out</a>
       </li>
 
+      <li *ngIf="isUserLoggedIn" class="nav-item text-success" >
+        Ciao {{username}}
+      </li>
+
     </ul>
 
   </div>
