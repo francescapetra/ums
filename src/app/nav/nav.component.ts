@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -9,9 +11,13 @@ export class NavComponent implements OnInit {
 
   @Output() onNewUser = new EventEmitter();
 
-  constructor() { }
+  public isUserLoggedIn = false;
+
+  constructor(private auth:AuthService, private router:Router) { }
 
   ngOnInit(): void {
+
+    this.isUserLoggedIn = this.auth.isUserLoggedIn();
   }
 
   newUser(){
@@ -19,6 +25,14 @@ export class NavComponent implements OnInit {
     this.onNewUser.emit();
 
   }
+  logout2(e: { preventDefault: () => void; }){
+
+    e.preventDefault();
+    this.auth.logout();
+    this.router.navigate(['login']);
+
+  }
+  // s
 
 }
 

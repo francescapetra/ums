@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RouteGuardService implements CanActivate {
 
-  constructor(private router : Router) { }
+  constructor(private router : Router, private auth:AuthService) { }
 
-  canActivate(route: ActivatedRouteSnapshot, status: RouterStateSnapshot) {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
 
-    this.router.navigate(['users']);
+    if( this.auth.isUserLoggedIn()){
 
-   console.log(status);
-   console.log(route);
+      return true;
 
-    //return true;
+    } else {
 
-    return false;//il modulo non viene caricato e nemmeno le rotte
+      return this.router.navigate(['login']);
+
+    }
+
   }
 }

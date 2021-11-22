@@ -13,6 +13,8 @@ import { NavComponent } from './nav/nav.component';
 import { UserDataComponent } from './user-data/user-data.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RoutingModuleModule } from './routing-module.module';
+import { AuthService } from './services/auth.service';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { RoutingModuleModule } from './routing-module.module';
     UserDetailComponent,
     NavComponent,
     UserDataComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,7 @@ import { RoutingModuleModule } from './routing-module.module';
     RoutingModuleModule
 
   ],
-  providers: [UserService],
+  providers: [UserService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
