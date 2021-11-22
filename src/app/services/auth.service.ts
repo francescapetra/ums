@@ -27,6 +27,8 @@ export class AuthService {
 
   signUp(username:string, email:string, password:string){
 
+      localStorage.setItem('token', email);
+      return true;
 
   }
   logout(){

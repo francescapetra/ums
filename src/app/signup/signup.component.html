@@ -3,7 +3,7 @@
     <h1>
       login
     </h1>
-    <form name="signupForm" #f="ngForm">
+    <form name="signupForm" #f="ngForm" (ngSubmit)="signUp(f)">
       <div class="form-group">
         <label for="name">Name</label>
         <input required class="form-control" minlength="2" type="name" ngModel #name="ngModel" name="name" id="name">
