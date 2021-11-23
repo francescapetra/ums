@@ -1,6 +1,7 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { User } from "../classes/User";
+import { AuthService } from "./auth.service";
 
 interface UsersResponse{
   data: User [] ;
@@ -25,13 +26,22 @@ export class UserService{
 
   public APIURL = 'http://127.0.0.1:8000/users';
 
-  constructor(public http: HttpClient){
+  constructor(public http: HttpClient, private auth : AuthService){
 
+  }
+  getAuthHeader(): HttpHeaders {
+
+    const headers = new HttpHeaders(
+      {
+        Authorization : 'Bearer ' + this.auth.getToken()
+      }
+    );
+    return headers;
   }
 
   getUsers() {
 
-    return this.http.get<UsersResponse>(this.APIURL);
+    return this.http.get<UsersResponse>(this.APIURL , {headers: this.getAuthHeader()});
   }
 
   getUser(id: number) {
