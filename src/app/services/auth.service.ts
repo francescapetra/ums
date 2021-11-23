@@ -1,5 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { User } from '../classes/User';
+
+interface Jwt {
+  access_token: string,
+  token_type: string
+  expires_in : number,
+  user_name: string,
+  email: string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +21,9 @@ export class AuthService {
   @Output() usersignedup = new EventEmitter<User>();
   @Output() userlogout = new EventEmitter();
 
-  constructor() {
+  public APIAUTHURL = 'http://localhost:8000/api/auth/';
 
-  }
+  constructor(private http: HttpClient) {}
 
   isUserLoggedIn(){
 
@@ -25,14 +34,30 @@ export class AuthService {
 
   signIn(email:string, password:string){
 
-    localStorage.setItem('token', email);
+    this.http.post(this.APIAUTHURL + 'login',
+      {
+        email: email,
+        password: password
+      })
+      .subscribe(
+      (payload: Jwt) => {
+        localStorage.setItem('token', payload.access_token);
+        console.log(payload);
+        localStorage.setItem('user' , JSON.stringify(payload));
 
-    let user = new User();
-    user.name = 'User';
-    user.email = email;
-    this.usersignedin.emit(user);
 
-    return true;
+        let user = new User();
+        user.name = payload.user_name;
+        user.email = payload.email;
+        this.usersignedin.emit(user);
+        return true;
+
+      } ,
+      (error: any) => {
+
+        console.log(error)
+      }
+    )
 
   }
 
