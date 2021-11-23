@@ -41,32 +41,32 @@ export class UserService{
 
   getUsers() {
 
-    return this.http.get<UsersResponse>(this.APIURL , {headers: this.getAuthHeader()});
+    return this.http.get<UsersResponse>(this.APIURL, {headers: this.getAuthHeader()});
   }
 
   getUser(id: number) {
 
     //return this.users[+id];
-    return this.http.get<UserResponse>(this.APIURL + '/' + id);
+    return this.http.get<UserResponse>(this.APIURL + '/' + id, {headers: this.getAuthHeader()});
 
     }
 
-    deleteUser(user: User) {
+  deleteUser(user: User) {
 
-      return this.http.delete<UserResponse>(this.APIURL + '/' + user.id);
+    return this.http.delete<UserResponse>(this.APIURL + '/' + user.id, {headers: this.getAuthHeader()});
 
-    }
-    updateUser(user: User) {
+  }
+  updateUser(user: User) {
 
-    return this.http.patch<UserResponse>(this.APIURL + '/' + user.id, user);
+  return this.http.patch<UserResponse>(this.APIURL + '/' + user.id, user, {headers: this.getAuthHeader()});
 
-    }
-    createUser(user: User) {
+  }
+  createUser(user: User) {
 
-      return this.http.post<UserResponse>(this.APIURL, user);
+    return this.http.post<UserResponse>(this.APIURL, user);
 
 
-    }
+  }
 
 
 }
