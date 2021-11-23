@@ -32,24 +32,26 @@ export class AuthService {
     return this.isUserLogged;
   }
 
-  signIn(email:string, password:string){
+  signIn(email: string, password: string) {
 
     this.http.post(this.APIAUTHURL + 'login',
       {
         email: email,
         password: password
-      })
-      .subscribe(
+      }
+    ).subscribe(
       (payload: Jwt) => {
         localStorage.setItem('token', payload.access_token);
-        console.log(payload);//token
-        localStorage.setItem('user' , JSON.stringify(payload));
 
+        console.log(payload)
+
+        localStorage.setItem('user' , JSON.stringify(payload));
 
         let user = new User();
         user.name = payload.user_name;
         user.email = payload.email;
         this.usersignedin.emit(user);
+
         return true;
 
       } ,
@@ -58,8 +60,8 @@ export class AuthService {
         console.log(httpResp.message);
       }
     )
-
   }
+
 
   signUp(username:string, email:string, password:string){
 

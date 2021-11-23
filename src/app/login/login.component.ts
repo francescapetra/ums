@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '../classes/User';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -13,6 +14,16 @@ export class LoginComponent implements OnInit {
   constructor(private auth:AuthService, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.auth.usersignedin
+
+    .subscribe(
+
+      (user: User) => {
+
+      this.router.navigate(['']);
+      }
+    );
   }
 
   signIn(form: NgForm) {
@@ -27,7 +38,7 @@ export class LoginComponent implements OnInit {
 
       console.log(result);
 
-      return this.router.navigate(['']);
+      return this.router.navigate(['/']);
     }
 
 

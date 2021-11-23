@@ -8,16 +8,16 @@
   <div class="collapse navbar-collapse" id="navbarCollapse" >
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#" routerLink="">Home</a>
+        <a class="nav-link" href="#" *ngIf="isUserLoggedIn" routerLink="">Home</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#" routerLink="users">Users</a>
+        <a class="nav-link" href="#" *ngIf="isUserLoggedIn" routerLink="users">Users</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="#" routerLink="users/new">New User</a>
+        <a class="nav-link " href="#" *ngIf="isUserLoggedIn" routerLink="users/new">New User</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+        <a class="nav-link disabled" *ngIf="isUserLoggedIn" href="#">Disabled</a>
       </li>
     </ul>
 
