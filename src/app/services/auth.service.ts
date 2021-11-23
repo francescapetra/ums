@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { User } from '../classes/User';
 
@@ -42,7 +42,7 @@ export class AuthService {
       .subscribe(
       (payload: Jwt) => {
         localStorage.setItem('token', payload.access_token);
-        console.log(payload);
+        console.log(payload);//token
         localStorage.setItem('user' , JSON.stringify(payload));
 
 
@@ -53,9 +53,9 @@ export class AuthService {
         return true;
 
       } ,
-      (error: any) => {
+      (httpResp: HttpErrorResponse) => {
 
-        console.log(error)
+        console.log(httpResp.message);
       }
     )
 
@@ -76,6 +76,7 @@ export class AuthService {
   logout(){
 
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
 
     this.userlogout.emit();
 
