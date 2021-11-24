@@ -4,6 +4,14 @@ import { Router } from '@angular/router';
 import { User } from '../classes/User';
 import { AuthService } from '../services/auth.service';
 
+interface Jwt {
+  access_token: string,
+  token_type: string
+  expires_in : number,
+  user_name: string,
+  email: string
+}
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,32 +22,22 @@ export class LoginComponent implements OnInit {
   constructor(private auth:AuthService, private router: Router) { }
 
   ngOnInit(): void {
-
-    this.auth.usersignedin
-
-    .subscribe(
-
-      (user: User) => {
-
-      this.router.navigate(['']);
-      }
-    );
   }
 
   signIn(form: NgForm) {
 
-    if(!form.valid){
+    this.auth.signIn(form.value.email, form.value.password)
 
-      return false;
-
-    }else{
-
-      let result = this.auth.signIn(form.value.email, form.value.password);//true
-
-      console.log(result);
-
-      return this.router.navigate(['/']);
-    }
+     .subscribe(
+       (payload: Jwt) => {
+          alert('Login Successful');
+         this.router.navigate(['']);
+       },
+       ({error}) =>{
+         alert(error.error);
+         console.log(error)
+       }
+     )
 
 
 

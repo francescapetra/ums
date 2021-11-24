@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
+import { tap } from 'rxjs/operators';
 import { User } from '../classes/User';
 
 interface Jwt {
@@ -32,50 +33,45 @@ export class AuthService {
     return this.isUserLogged;
   }
 
-  signIn(email: string, password: string) {
+ signIn(email: string, password: string) {
 
-    this.http.post(this.APIAUTHURL + 'login',
+   return  this.http.post(this.APIAUTHURL + 'login',
       {
         email: email,
         password: password
       }
-    ).subscribe(
-      (payload: Jwt) => {
-        localStorage.setItem('token', payload.access_token);
+    ).pipe(
+      tap(
+     (payload: Jwt) => {
+       localStorage.setItem('token', payload.access_token);
+       //console.log(payload)
+       localStorage.setItem('user' , JSON.stringify(payload));
 
-        console.log(payload)
+       let user = new User();
+       user.name = payload.user_name;
+       user.email = payload.email;
 
-        localStorage.setItem('user' , JSON.stringify(payload));
+       this.usersignedin.emit(user);
+       return true;
 
-        let user = new User();
-        user.name = payload.user_name;
-        user.email = payload.email;
-        this.usersignedin.emit(user);
-
-        return true;
-
-      } ,
-      (httpResp: HttpErrorResponse) => {
-
-        console.log(httpResp.message);
-      }
-    )
+     }
+   ));
   }
 
 
-  signUp(username: string, email: string, password: string) {
+   signUp(username: string, email: string, password: string) {
 
     const user = new User();
     user.name = username;
     user.email = email;
 
-    this.http.post(this.APIAUTHURL + 'signup',
+    return this.http.post(this.APIAUTHURL + 'signup',
       {
         email: email,
         password: password,
         name : username
       }
-    ).subscribe(
+    ).pipe(tap(
       (payload: Jwt) => {
         localStorage.setItem('token', payload.access_token);
         console.log(payload);
@@ -83,13 +79,8 @@ export class AuthService {
 
         this.usersignedup.emit(user);
 
-
       } ,
-      (httpResp: HttpErrorResponse) => {
-
-        console.log(httpResp.message);
-      }
-    );
+    ));
   }
 
   logout(){
