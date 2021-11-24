@@ -2,10 +2,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { User } from '../classes/User';
+import { environment } from '../../environments/environment';
 
 interface Jwt {
   access_token: string,
-  token_type: string
+  token_type: string,
   expires_in : number,
   user_name: string,
   email: string
@@ -22,7 +23,7 @@ export class AuthService {
   @Output() usersignedup = new EventEmitter<User>();
   @Output() userlogout = new EventEmitter();
 
-  public APIAUTHURL = 'http://localhost:8000/api/auth/';
+  public APIAUTHURL = environment.APIAUTHURL;
 
   constructor(private http: HttpClient) {}
 

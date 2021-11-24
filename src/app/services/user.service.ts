@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { User } from "../classes/User";
 import { AuthService } from "./auth.service";
+import { environment } from '../../environments/environment';
 
 interface UsersResponse{
   data: User [] ;
@@ -24,7 +25,7 @@ export class UserService{
 
   users: User[] = [];
 
-  public APIURL = 'http://127.0.0.1:8000/users';
+  public APIURL = environment.APIURL;
 
   constructor(public http: HttpClient, private auth : AuthService){
 
