@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../classes/User';
 import { AuthService } from '../services/auth.service';
+import {HttpErrorResponse} from "@angular/common/http";
 
 interface Jwt {
   access_token: string,
@@ -38,11 +39,28 @@ export class LoginComponent implements OnInit {
          console.log(error)
        }
      )
-
-
-
     // alert(form.valid);
     // alert(form.value.email);
   }
 
 }
+
+//  async signIn(form: NgForm) {
+
+//  try {
+
+//    const resp = await this.auth.signIn(form.value.email, form.value.password)
+//      .toPromise();
+
+//    alert(resp.user_name + ' logged in successfully');
+
+//    this.router.navigate(['/']);
+
+//  } catch(e) {
+
+//         alert(e.error.error);
+
+//       }
+//  }
+// }
+
