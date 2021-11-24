@@ -12,19 +12,15 @@ export class SignupComponent implements OnInit {
 
   constructor(private auth: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
-
-  signUp(form : NgForm) {
-
-     let result = this.auth.signUp(form.value.name,form.value.email, form.value.password);
-
-     if(result){
+  ngOnInit() {
+    this.auth.usersignedup.subscribe( () => {
 
       this.router.navigate(['']);
-
-     }
-
+    });
   }
 
+  signUp(form: NgForm) {
+
+    this.auth.signUp(form.value.name, form.value.email, form.value.password);
+  }
 }
